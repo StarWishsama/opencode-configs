@@ -9,10 +9,27 @@
 
 **禁止** 对不在你修改范围内的代码做格式化、样式优化。
 
-代码原则为优先快速失败，在没有额外指明的情况下，不要做 "兜底" 代码。
+对代码修改时，**禁止**在单次使用工具修改文件时请求修改多个文件。
 
-在遇到你不了解或不确定的框架/依赖, must use context7。
+如果当前项目使用了 Git，且有新增文件，请将新增的文件 add 进 git。
 
-如果当前项目使用了 Git，且你在新增 git untracked 文件，请将新增的文件 add 进 git
+若当前项目为 Java/Kotlin 语言，执行构建操作/检查代码错误时优先使用 Jetbrains Tool，其他语言则不使用。
 
-优先使用提供的工具与文件交互，而不是执行 bash 命令。
+<!-- context7 -->
+Use the `ctx7` CLI to fetch current documentation whenever the user asks about a library, framework, SDK, API, CLI tool, or cloud service -- even well-known ones like React, Next.js, Prisma, Express, Tailwind, Django, or Spring Boot. This includes API syntax, configuration, version migration, library-specific debugging, setup instructions, and CLI tool usage. Use even when you think you know the answer -- your training data may not reflect recent changes. Prefer this over web search for library docs.
+
+Do not use for: refactoring, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
+
+## Steps
+
+1. Resolve library: `npx ctx7@latest library <name> "<user's question>"` — use the official library name with proper punctuation (e.g., "Next.js" not "nextjs", "Customer.io" not "customerio", "Three.js" not "threejs")
+2. Pick the best match (ID format: `/org/project`) by: exact name match, description relevance, code snippet count, source reputation (High/Medium preferred), and benchmark score (higher is better). If results don't look right, try alternate names or queries (e.g., "next.js" not "nextjs", or rephrase the question)
+3. Fetch docs: `npx ctx7@latest docs <libraryId> "<user's question>"`
+4. Answer using the fetched documentation
+
+You MUST call `library` first to get a valid ID unless the user provides one directly in `/org/project` format. Use the user's full question as the query -- specific and detailed queries return better results than vague single words. Do not run more than 3 commands per question. Do not include sensitive information (API keys, passwords, credentials) in queries.
+
+For version-specific docs, use `/org/project/version` from the `library` output (e.g., `/vercel/next.js/v14.3.0`).
+
+If a command fails with a quota error, inform the user and suggest `npx ctx7@latest login` or setting `CONTEXT7_API_KEY` env var for higher limits. Do not silently fall back to training data.
+<!-- context7 -->
