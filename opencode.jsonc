@@ -1,33 +1,27 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "jetbrain-idea": {
-      "type": "local",
-      "environment": {
-        "IJ_MCP_SERVER_PORT": "USE JETBRAINS IDEA PROVIDED SERVER PORT",
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "USE YOUR CONTEXT7 KEY, recommend use context7 skill",
       },
-      "command": [
-        "USE JETBRAINS IDEA PROVIDED STARTUP COMMAND"
-      ],
       "enabled": true,
     },
-    "mysql-mcp-server": {
-      "type": "local",
-      // For more details check https://github.com/benborla/mcp-server-mysql
-      "environment": {
-        "MYSQL_HOST": "localhost",
-        "MYSQL_PORT": "3306",
-        "MYSQL_USER": "",
-        "MYSQL_PASS": "",
-        "MYSQL_DB": "",
-        "ALLOW_INSERT_OPERATIONS": "false",
-        "ALLOW_UPDATE_OPERATIONS": "false",
-        "ALLOW_DELETE_OPERATIONS": "false",
-        "MYSQL_ENABLE_LOGGING": "true",
-        "MULTI_DB_WRITE_MODE": "false",
-      },
-      "command": ["mcp-server-mysql"],
+    "jetbrain-idea": {
+      "type": "remote",
+      "url": "http://127.0.0.1:64342/sse", // Use idea provided url
+      "headers": {},
       "enabled": true,
+    },
+    "dbx": {
+      "type": "local",
+      "command": ["npx", "-y", "@dbx-app/mcp-server"],
+      "enabled": true,
+      "env": {
+        "DBX_MCP_ALLOW_WRITES": "0",
+      },
     },
     "codegraph": {
       "type": "local",
@@ -48,21 +42,24 @@
   "permission": {
     "edit": "ask",
     "bash": {
-      "*": "ask",
       "git status": "allow",
       "git add *": "allow",
       "git log *": "allow",
       "git show *": "allow",
+      "git diff *": "allow",
+      "rg *": "allow",
+      "*": "ask"
     },
     "jetbrain-idea_replace_text_in_file": "ask",
     "jetbrain-idea_rename_refactoring": "ask",
     "jetbrain-idea_execute_terminal_command": "ask",
-    "jetbrain-idea_create_new_file": "ask",
+    "jetbrain-idea_create_new_file": "ask"
   },
   "plugin": [
     "opencode-wakatime@latest",
     "@tarquinen/opencode-dcp@latest",
     "@mohak34/opencode-notifier@latest",
-    "@slkiser/opencode-quota",
+    "@slkiser/opencode-quota@latest",
+    "cc-safety-net"
   ],
 }
