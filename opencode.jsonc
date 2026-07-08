@@ -42,24 +42,26 @@
   "permission": {
     "edit": "ask",
     "bash": {
-      "git status": "allow",
-      "git add *": "allow",
+      "*": "ask",
+      "git status *": "allow",
       "git log *": "allow",
       "git show *": "allow",
       "git diff *": "allow",
       "rg *": "allow",
-      "*": "ask"
     },
     "jetbrain-idea_replace_text_in_file": "ask",
     "jetbrain-idea_rename_refactoring": "ask",
     "jetbrain-idea_execute_terminal_command": "ask",
-    "jetbrain-idea_create_new_file": "ask"
+    "jetbrain-idea_create_new_file": "ask",
+    "dbx_dbx_execute_query": "ask",
   },
   "plugin": [
     "opencode-wakatime@latest",
     "@tarquinen/opencode-dcp@latest",
     "@mohak34/opencode-notifier@latest",
     "@slkiser/opencode-quota@latest",
-    "cc-safety-net"
+    "cc-safety-net",
+    "opencode-mem",
+    "oc-tps@latest"
   ],
 }
